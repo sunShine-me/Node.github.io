@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>选项卡</title>
+    <style>
+        div,ul,img{
+            padding: 0;
+            margin: 0;
+            border: 0;
+        }
+        #box{
+            width: 480px;
+            margin:20px auto 0;
+        }
+        #box ul{
+            overflow: hidden;
+        }
+        #box ul li{
+            float: left;
+            width: 156px;
+            line-height: 28px;
+            background: #999;
+            border: 1px solid #cccccc;
+            color: #333333;
+            text-align: center;
+            font-size: 16px;
+            list-style-type: none;
+            margin-right: 1px;
+
+        }
+        #box div{
+            height: 400px;
+            background: #333;
+            line-height: 200px;
+            font-size: 180px;
+            color: #ffffff;
+            text-align: center;
+            display: none;
+
+        }
+        #box ul .active{
+            background: #333;
+            color: #ffffff;
+        }
+    </style>
+</head>
+<body>
+<div id="box">
+    <ul>
+        <li class="active">图片一</li>
+        <li>图片二</li>
+        <li>图片三</li>
+    </ul>
+    <div style=" background:red;display: block;"><img src="" alt="1"/></div>
+    <div style=" background:blue;"><img src="" alt="2"/></div>
+    <div style=" background:green;"><img src="" alt="3"/></div>
+    <p><input type="button" value="上一个"/></p>
+    <p><input type="button" value="下一个"/></p>
+</div>
+<script>
+    var oDiv=document.getElementById('box');
+    var oUl=oDiv.getElementsByTagName('ul')[0];
+    var oLi=oDiv.getElementsByTagName('li');
+    var oDiv1=oDiv.getElementsByTagName('div');
+    var oIp=oDiv.getElementsByTagName('p');
+    var now=0;//上一个，下一个
+    for(var i=0;i<oLi.length;i++){
+        oLi[i].index=i;//选项卡记录当前下标
+        oLi[i].onmouseover= function () {//加鼠标事件
+            now=this.index;
+            tab();
+        };
+        function tab(){
+            for(var i=0;i<oLi.length;i++){//循环所有li，去掉属性
+                oLi[i].className='';
+                oDiv1[i].style.display='none';
+            }
+            oLi[now].className='active';//给当前li加属性
+            oDiv1[now].style.display='block';
+        };
+        oIp[0].onclick=function(){
+            now--;//-1;
+            if(now==-1){
+                now=oLi.length-1;
+            }
+            tab();
+        };
+        oIp[1].onclick=function(){
+            now++;//1;
+            if(now==oLi.length){
+                now=0;
+            }
+            tab();
+        };
+    }
+</script>
+</body>
+</html>
